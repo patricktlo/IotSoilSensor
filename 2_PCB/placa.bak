@@ -328,11 +328,11 @@ Text Label 3650 4800 0    50   ~ 0
 SWDIO
 Wire Wire Line
 	3650 4800 3450 4800
-Text Label 1300 7200 0    50   ~ 0
+Text Label 1300 7300 0    50   ~ 0
 SWCLK
 Text Label 1300 7100 0    50   ~ 0
 SWDIO
-Text Label 1300 7300 0    50   ~ 0
+Text Label 1300 7200 0    50   ~ 0
 NRST
 $Comp
 L power:VCC #PWR0110
@@ -544,7 +544,7 @@ U 1 1 5B900117
 P 7100 3300
 F 0 "U2" H 7350 4050 50  0000 C CNN
 F 1 "Ai-Thinker-Ra-01" H 6650 4050 50  0000 C CNN
-F 2 "RF_Module:Ai-Thinker-Ra-01-LoRa" H 8100 2900 50  0001 C CNN
+F 2 "TCC:Ai-Thinker-Ra-01-LoRa" H 8100 2900 50  0001 C CNN
 F 3 "https://mikroelectron.com/Product/10KM-433M-LORA-LONG-RANGE-WIRELESS-MODULE-RA-01" H 7200 4000 50  0001 C CNN
 	1    7100 3300
 	1    0    0    -1  

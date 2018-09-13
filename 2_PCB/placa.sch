@@ -544,7 +544,7 @@ U 1 1 5B900117
 P 7100 3300
 F 0 "U2" H 7350 4050 50  0000 C CNN
 F 1 "Ai-Thinker-Ra-01" H 6650 4050 50  0000 C CNN
-F 2 "RF_Module:Ai-Thinker-Ra-01-LoRa" H 8100 2900 50  0001 C CNN
+F 2 "TCC:Ai-Thinker-Ra-01-LoRa" H 8100 2900 50  0001 C CNN
 F 3 "https://mikroelectron.com/Product/10KM-433M-LORA-LONG-RANGE-WIRELESS-MODULE-RA-01" H 7200 4000 50  0001 C CNN
 	1    7100 3300
 	1    0    0    -1  
@@ -636,9 +636,7 @@ Text Label 6450 3000 2    50   ~ 0
 LoRa_Reset
 Wire Wire Line
 	6450 3000 6600 3000
-Wire Wire Line
-	3450 4600 3650 4600
-Text Label 3650 4600 0    50   ~ 0
+Text Label 2150 4700 2    50   ~ 0
 userLED
 Text Label 5100 6850 0    50   ~ 0
 userLED
@@ -1181,7 +1179,6 @@ NoConn ~ 3450 5000
 NoConn ~ 2250 5000
 NoConn ~ 2250 4900
 NoConn ~ 2250 4800
-NoConn ~ 2250 4700
 NoConn ~ 2250 4600
 NoConn ~ 2250 4500
 NoConn ~ 2250 4400
@@ -1325,4 +1322,7 @@ Wire Wire Line
 Wire Wire Line
 	3450 4000 3650 4000
 NoConn ~ 2250 3700
+NoConn ~ 3450 4600
+Wire Wire Line
+	2250 4700 2150 4700
 $EndSCHEMATC
