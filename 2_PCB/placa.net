@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /media/patrick/C292A9B892A9B0F9/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/2_PCB/placa.sch)
-    (date "qui 13 set 2018 10:52:36 -03")
+    (date "dom 16 set 2018 22:13:51 -03")
     (tool "Eeschema 5.0.0-fee4fd1~66~ubuntu18.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -24,6 +24,7 @@
       (tstamp 5B7D65B3))
     (comp (ref C12)
       (value C_Variable)
+      (footprint "TCC:Moisture Sensor")
       (datasheet ~)
       (libsource (lib Device) (part C_Variable) (description "Variable capacitor"))
       (sheetpath (names /) (tstamps /))
