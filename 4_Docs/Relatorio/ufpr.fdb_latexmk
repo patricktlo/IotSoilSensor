@@ -1,0 +1,11 @@
+# Fdb version 3
+["pdflatex"] 1537711204 "ufpr.cls" "ufpr.pdf" "ufpr" 1537711204
+  "/usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf" 1522066949 33362 cf75436e19743e94a92a6b1b9183c434 ""
+  "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1537324880 4221350 00a989c6e8cdb1661f6d4fd8038dd826 ""
+  "/usr/local/texlive/2018/texmf.cnf" 1537324862 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
+  "size1pptsize.clo" 0 -1 0 ""
+  "ufpr.aux" 1537467279 8 a94a2480d3289e625eea47cd1b285758 ""
+  "ufpr.cls" 1537711203 22783 2dcc48c99c7d06746c3ac5f1ec93b661 ""
+  (generated)
+  "ufpr.pdf"
+  "ufpr.log"

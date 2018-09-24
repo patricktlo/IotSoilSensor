@@ -1,0 +1,186 @@
+% ****************
+% Template para o uso do estilo ufpr.cls, modificado de acordo com critérios do PPGEE/UFPR
+%
+% Gere o documento preferencialmente em formato PDF utlizando pdflatex
+%
+% Versão 1.0 - Beta - Prof. Carlos Marcelo Pedroso
+%
+% Antes de utilizar, instale o pacote abntex (apt-get install abntex)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{ufpr}
+\usepackage[brazil]{babel}
+% \usepackage[utf8]{inputenc}
+% \usepackage{amssymb,amsfonts,amsmath}
+% \usepackage{multirow}
+% \usepackage{graphicx}
+% \usepackage{subfigure}
+% \usepackage{setspace}
+% \usepackage{listings} 
+% \usepackage{float}
+% \usepackage{parskip}
+% \usepackage{array,longtable}
+% \usepackage{verbatim} 
+% %\usepackage{breakurl}
+% \usepackage[none]{hyphenat}
+% \setlength{\emergencystretch}{5em}
+% % \usepackage{abnt2cite}
+\usepackage{natbib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{trivfloat}
+\trivfloat{quadro}
+\floatstyle{plaintop} % Forçar posição da legenda para o topo
+\restylefloat{quadro} % Forçar posição da legenda para o topo
+\renewcommand{\listquadroname}{Lista de Quadros} % Forçar texto na Lista de Quadros
+\usepackage{listings} 
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\newcommand{\highlight}[1]{\colorbox{yellow}{#1}} % destacar msg
+
+%UTILIZADO PARA MATLAB
+\lstset{%
+    basicstyle=\fontsize{10}{9}\tt,
+    language=Matlab,%
+    alias tlmgr='/opt/texbin/tlmgr'%basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    extendedchars=true,
+    inputencoding=latin1,
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=8pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+    literate=
+        {Ç}{{\c{C}}}1
+        {Ã}{{\~{A}}}1
+        {á}{{\'{a}}}1
+        {ENTÃO}{{\keywordstyle{ENT\~{A}O}}}5
+        {SENÃO}{{\keywordstyle{SEN\~{A}O}}}5
+        {FAÇA}{{\keywordstyle{FA\c{C}A}}}4,
+}
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% don't hyphenate %%%%%%%%%%%%%%%%
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Utilizado para equações com parenteses maiores %%
+\newcommand{\PR}[1]{\ensuremath{\left[#1\right]}}
+\newcommand{\PC}[1]{\ensuremath{\left(#1\right)}}
+\newcommand{\chav}[1]{\ensuremath{\left\{#1\right\}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage[alf,abnt-year-extra-label=yes,abnt-full-initials=no,abnt-emphasize=bf,abnt-and-type=e,abnt-repeated-author-omit=yes]{abntcite}
+\usepackage{abntcite}
+% Para trocar a fonte para um padrão parecido com o Arial, que é especificado pela ABNT
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\setcounter{secnumdepth}{3}    % n - numero de niveis de subsubsection numeradas
+\setcounter{tocdepth}{3}       % coloca ate o nivel n no sumario
+\parskip 0pt
+\setlength{\parindent}{1.5cm}
+% ****************************************************************************
+\title{Desenvolvimento de uma solução IoT para medida remota de temperatura,
+  umidade do ar e do solo com baixo custo e baixo consumo de energia}
+\author{Patrick Thierry Lorusso El Omairi}
+\advisortitle{Orientador}
+
+\advisorname{Prof. Dr. Márlio José do Couto Bonfim}
+\advisorplace{Departamento de Engenharia Elétrica, UFPR}
+\concentrationarea{YYY}
+\city{Curitiba}
+\year{2018}
+% \dedication{.}
+
+% \banca        % nao insira o nome do orientador, ja eh feito automaticamente
+% {Profa. Dra. Maria Maria Maria}{Instituto de Física, USP}
+% {Prof. Dr. José Silva}{Departamento de Engenharia Elétrica, ITA}
+% {Prof. Dr. Pedro Paulo}{Departamento de Engenharia Elétrica, UFPR} % se nao houver deixe em branco {}{}
+% {}{}    % se houver um quarto membro na banca, inserir nome e instituicao
+
+% \defesa{14 de abril de 2012} % dia em que foi realizada a defesa da dissertacao
+
+\begin{document}
+% Retire os comentários conforme a necessidade
+\makecapadissertacao           % cria capa para dissertacao de mestrado %
+\makerosto                     % cria folha de rosto para versao final da UFPR %
+% \maketermo                     % ATENÇÃO: o termo de aprovação é fornecido pelo PPGEE após o cumprimento de todos os requisitos para obtenção do grau de mestre, e deve ser inserido no documento final.
+\makededication                % elemento opcional: ver variavel dedication
+%\singlespacing           % espacamento 1 - capa UFPR%
+%\onehalfspacing          % espacamento 1/2 %
+\doublespacing            % espacamento 2 - UFPR %
+%\pagestyle{plain} 
+%\pagestyle{headings}
+%\pagenumbering{roman}
+\pagestyle{empty}
+\chapter*{Agradecimentos}
+\input{agradecimentos.tex}          % 
+\singlespacing
+%\chapter*{Resumo}
+%\addcontentsline{toc}{chapter}{\MakeUppercase{Resumo}}
+%\input{resumo.tex}
+%\chapter*{Abstract}
+%\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
+%\input{abstract.tex}
+
+\newpage
+
+\listoffigures
+%\listoftables
+\newpage
+
+\chapter*{Lista de Siglas}
+\input{siglas.tex}
+
+\newpage
+\tableofcontents
+\newpage
+\pagenumbering{arabic} % numerais romanos
+\pagestyle{headings}   % números de pagina no cabeçalho
+\setcounter{page}{9}  % substitua pelo número inicial da primeira página do capítulo 1
+% Texto deve ter espaçamento duplo
+\doublespacing
+
+%**********************************************************
+ \input{capitulo1.tex}
+ \input{capitulo2.tex}
+ \input{capitulo3.tex}
+ \input{capitulo4.tex}
+% \input{capitulo5.tex}
+% \input{capitulo6.tex}
+ \input{conclusao.tex}
+ \input{crono.tex}
+%**********************************************************
+
+\appendix
+% \renewcommand{\thesubsection}{A}
+
+\singlespacing
+%\input{anexo.tex}
+
+\doublespacing
+\parskip 10pt
+% \bibliographystyle{sbc}      	% O formato da SBC me parece mais agradável e é bastante semelhante ao exigido pela ABNT 
+% \bibliographystyle{abnt-num}	% Referências alfa numéricas, no estilo [1] [2] ...
+\bibliographystyle{abnt-alf}    % Formato desenvolvido para atender requisitos da ABNT (Open Source), do projeto ABNTEX (http://codigolivre.org.br)
+\bibliography{referencias}
+\addcontentsline{toc}{chapter}{\MakeUppercase{Bibliografia}}
+%\singlespacing
+%\makecapadissertacao
+\end{document}

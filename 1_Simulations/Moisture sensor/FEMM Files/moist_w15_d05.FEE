@@ -1,0 +1,117 @@
+[Format]      =  1
+[Precision]   =  1e-008
+[MinAngle]    =  30
+[DoSmartMesh] =  1
+[Depth]       =  37000
+[LengthUnits] =  microns
+[ProblemType] =  planar
+[Coordinates] =  cartesian
+[Comment]     =  "Add comments here."
+[PointProps]   = 0
+[BdryProps]   = 0
+[BlockProps]  = 5
+  <BeginBlock>
+    <BlockName> = "Air"
+    <ex> = 1
+    <ey> = 1
+    <qv> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "copper"
+    <ex> = 6
+    <ey> = 6
+    <qv> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "Fenolite"
+    <ex> = 4.5
+    <ey> = 4.5
+    <qv> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "water"
+    <ex> = 80
+    <ey> = 80
+    <qv> = 0
+  <EndBlock>
+  <BeginBlock>
+    <BlockName> = "Soil_30%water"
+    <ex> = 27
+    <ey> = 27
+    <qv> = 0
+  <EndBlock>
+[ConductorProps]  = 2
+  <BeginConductor>
+    <ConductorName> = "zero"
+    <Vc> = 0
+    <qc> = 0
+    <ConductorType> = 1
+  <EndConductor>
+  <BeginConductor>
+    <ConductorName> = "vcc"
+    <Vc> = 1
+    <qc> = 0
+    <ConductorType> = 1
+  <EndConductor>
+[NumPoints] = 22
+0	0	0	0	0
+0	1600	0	0	0
+1500	1600	0	0	0
+0	1636	0	0	0
+1500	1636	0	0	0
+2000	1600	0	0	0
+2000	1636	0	0	0
+3500	1600	0	0	0
+3500	1636	0	0	0
+4000	1600	0	0	0
+0	5000	0	0	0
+4000	5000	0	0	0
+0	-36	0	0	0
+1500	0	0	0	0
+1500	-36	0	0	0
+2000	0	0	0	0
+2000	-36	0	0	0
+3500	0	0	0	0
+3500	-36	0	0	0
+4000	0	0	0	0
+0	-3000	0	0	0
+4000	-3000	0	0	0
+[NumSegments] = 28
+3	1	-1	0	0	0	0
+1	2	-1	0	0	0	1
+2	5	-1	0	0	0	0
+5	7	-1	0	0	0	2
+7	9	-1	0	0	0	0
+8	7	-1	0	0	0	0
+6	5	-1	0	0	0	0
+6	8	-1	0	0	0	2
+4	2	-1	0	0	0	0
+4	3	-1	0	0	0	1
+1	0	-1	0	0	0	0
+0	12	-1	0	0	0	0
+0	13	-1	0	0	0	2
+13	15	-1	0	0	0	0
+15	17	-1	0	0	0	1
+17	19	-1	0	0	0	0
+18	17	-1	0	0	0	0
+18	16	-1	0	0	0	1
+15	16	-1	0	0	0	0
+14	13	-1	0	0	0	0
+14	12	-1	0	0	0	2
+10	11	-1	0	0	0	0
+20	21	-1	0	0	0	0
+21	19	-1	0	0	0	0
+19	9	-1	0	0	0	0
+9	11	-1	0	0	0	0
+10	3	-1	0	0	0	0
+12	20	-1	0	0	0	0
+[NumArcSegments] = 0
+[NumHoles] = 0
+[NumBlockLabels] = 7
+1160	1100	3	-1	0	0
+230	-23	2	-1	0	0
+860	4940	4	-1	0	0
+960	-2750	4	-1	0	0
+57	1618	2	-1	0	0
+3221	1610	2	-1	0	0
+3259	-18	2	-1	0	0

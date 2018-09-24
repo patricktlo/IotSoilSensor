@@ -1,0 +1,430 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.9.18)  23 SEP 2018 23:16
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2018-04-01> patch level 5
+(./ufpr.cls
+Document Class: ufpr 2000/09/20 v0.1a Luciano Silva - Normas UFPR 
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2018/09/02 3.23 The Babel package
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2018/09/02 3.23 Babel switching mechanism
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/babel-portuges/portuges.ldf
+Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2018/09/02 3.23 Babel common definitions
+\babel@savecnt=\count89
+\U@D=\dimen103
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@dirlevel=\count90
+)
+\l@brazil = a dialect from \language\l@portuges 
+Package babel Info: Making " an active character on input line 145.
+))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count91
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/trivfloat/trivfloat.sty
+Package: trivfloat 2009/04/23 v1.4 Quick floats in LaTeX
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count92
+\float@exts=\toks14
+\float@box=\box26
+\@float@everytoks=\toks15
+\@floatcapt=\box27
+)
+\c@tfl@float@cnt=\count93
+LaTeX Info: Redefining \tfl@uppercase on input line 223.
+)
+\@float@every@quadro=\toks16
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+\lst@mode=\count94
+\lst@gtempboxa=\box28
+\lst@token=\toks18
+\lst@length=\count95
+\lst@currlwidth=\dimen104
+\lst@column=\count96
+\lst@pos=\count97
+\lst@lostspace=\dimen105
+\lst@width=\dimen106
+\lst@newlines=\count98
+\lst@lineno=\count99
+\lst@maxwidth=\dimen107
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
+\c@lstnumber=\count100
+\lst@skipnumbers=\count101
+\lst@framebox=\box29
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2018/09/02 1.7 listings configuration
+))
+Package: listings 2018/09/02 1.7 (Carsten Heinz)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+
+./main.tex:68: Package keyval Error: alias tlmgr undefined.
+
+See the keyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 }
+      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Package color Info: Redefining color blue on input line 71.
+(./abntcite.sty (./cvs-id.def)
+Package: abntcite 2006/04/25 v1.30 Chamadas de referencias no texto (NBR10520, 
+NBR10522)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count102
+\calc@Bcount=\count103
+\calc@Adimen=\dimen108
+\calc@Bdimen=\dimen109
+\calc@Askip=\skip45
+\calc@Bskip=\skip46
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count104
+\calc@Cskip=\skip47
+)
+(./abntex-abrev.sty (./cvs-id.def)
+Package: abntex-abrev 2003/10/13 v1.3 Abreviacoes
+ (./nbr10522-1988.def (./cvs-id.def)
+File: nbr10522-1988.def 2003/10/13 v1.2 Abreviacoes bibliograficas (NBR10522:19
+88)
+)
+(./abntex-abrev-pt_BR.def (./cvs-id.def)
+File: abntex-abrev-pt_BR.def 2003/10/13 v1.2 definicao de abntex-abrev, traduca
+o de termos en_US/pt_BR
+)) (./abntex-text.sty
+Package: abntex-text 2003/09/16 abnTeX text replacements
+
+(./nbr14724-2002.def)) (./abntex-default-design.sty (./cvs-id.def)
+Package: abntex-default-design 2005/06/22 v1.2 Definicoes de design padrao do a
+bntex
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\ABNTanapindent=\skip48
+\ABNTsignwidth=\skip49
+\ABNTsignthickness=\skip50
+\ABNTsignskip=\skip51
+)
+\minimumbiblabelwidth=\skip52
+\ABCIauxlen=\skip53
+\c@ABCIaux=\count105
+\c@ABCImax=\count106
+
+(./nbr10520-2002.def (./cvs-id.def)
+File: nbr10520-2002.def 2003/10/13 v1.2 Definicoes para abntcite (NBR10520:2002
+)
+)
+\biblabelsep=\skip54
+LaTeX Info: Redefining \newblock on input line 466.
+LaTeX Info: Redefining \cite on input line 493.
+LaTeX Info: Redefining \citeyear on input line 800.
+LaTeX Info: Redefining \citeauthor on input line 847.
+LaTeX Info: Redefining \citetext on input line 934.
+\ABCItoken=\toks19
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+) (./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 119.
+LaTeX Font Info:    ... okay on input line 119.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 119.
+
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1phv.fd
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+)
+\c@quadro=\count107
+\c@lstlisting=\count108
+
+(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count109
+\scratchdimen=\dimen110
+\scratchbox=\box30
+\nofMPsegments=\count110
+\nofMParguments=\count111
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count112
+\MPscratchDim=\dimen111
+\MPnumerator=\count113
+\makeMPintoPDFobject=\count114
+\everyMPtoPDFconversion=\toks21
+)
+./main.tex:121: Undefined control sequence.
+\makecapadissertacao ...n {center} \doublespacing 
+                                                  { {\large MINIST\'ERIO DA ...
+l.121 \makecapadissertacao
+                                     % cria capa para dissertacao de mestrado %
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+./main.tex:121: Undefined control sequence.
+<recently read> \doublespacing 
+                               
+l.121 \makecapadissertacao
+                                     % cria capa para dissertacao de mestrado %
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+./main.tex:121: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.121 \makecapadissertacao
+                                     % cria capa para dissertacao de mestrado %
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 121.
+[1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+./main.tex:122: Undefined control sequence.
+<argument> ...dima \@parboxrestore \doublespacing 
+                                                  {Trabalho de conclus\~{a}o...
+l.122 \makerosto
+                                     % cria folha de rosto para versao final...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 122.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 122.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 122.
+[2]
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 124.
+
+./main.tex:124: Undefined control sequence.
+<recently read> \@dedication 
+                             
+l.124 \makededication
+                                     % elemento opcional: ver variavel dedic...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[3]
+./main.tex:127: Undefined control sequence.
+l.127 \doublespacing
+                                % espacamento 2 - UFPR %
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+(./agradecimentos.tex)
+./main.tex:134: Undefined control sequence.
+l.134 \singlespacing
+                    
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[4
+
+] (./main.lof)
+\tf@lof=\write3
+\openout3 = `main.lof'.
+
+ [5
+
+] (./siglas.tex)
+Overfull \hbox (80.90552pt too wide) in paragraph at lines 1--150
+[]
+ []
+
+[6
+
+] (./main.toc
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 2.
+)
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ [7
+
+]
+./main.tex:158: Undefined control sequence.
+l.158 \doublespacing
+                    
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+(./capitulo1.tex
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 23.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/omsphv.fd
+File: omsphv.fd 
+)
+LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 23.
+)
+(./capitulo2.tex [9
+
+]
+Cap\'{\i }tulo 2.
+) (./capitulo3.tex [10
+
+]
+Cap\'{\i }tulo 3.
+) (./capitulo4.tex [11
+
+]
+Cap\'{\i }tulo 4.
+) (./conclusao.tex [12
+
+]
+Cap\'{\i }tulo 5.
+) (./crono.tex [13
+
+]
+Cap\'{\i }tulo 6.
+[14
+
+])
+./main.tex:174: Undefined control sequence.
+l.174 \singlespacing
+                    
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+./main.tex:177: Undefined control sequence.
+l.177 \doublespacing
+                    
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+(./main.bbl [15]
+
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
+
+) [16
+
+] (./main.aux) ) 
+Here is how much of TeX's memory you used:
+ 3867 strings out of 492641
+ 52168 string characters out of 6129315
+ 314722 words of memory out of 5000000
+ 7668 multiletter control sequences out of 15000+600000
+ 15048 words of font info for 33 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 29i,8n,40p,309b,217s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc
+}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/te
+xlive/2018/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on main.pdf (15 pages, 39735 bytes).
+PDF statistics:
+ 70 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

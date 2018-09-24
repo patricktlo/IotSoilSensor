@@ -1,0 +1,6 @@
+PWD /media/patrick/C292A9B892A9B0F9/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/4_Docs/Relatorio
+INPUT /usr/local/texlive/2018/texmf.cnf
+INPUT /usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT ufpr.cls
+OUTPUT ufpr.log
