@@ -1,14 +1,8 @@
 \babel@toc {brazil}{}
 \contentsline {chapter}{\numberline {1}\MakeUppercase {Introdu\IeC {\c c}\IeC {\~a}o}}{9}
-\contentsline {section}{\numberline {1.1}Objetivos}{9}
-\contentsline {subsection}{\numberline {1.1.1}Objetivo Geral}{9}
-\contentsline {subsection}{\numberline {1.1.2}Objetivos Espec\IeC {\'\i }ficos}{9}
-\contentsline {subsection}{\numberline {1.1.3}Normas e padr\IeC {\~o}es utilizados}{9}
-\contentsline {chapter}{\numberline {2}\MakeUppercase {FUNDAMENTA\IeC {\c C}\IeC {\~A}O TE\IeC {\'O}RICA}}{10}
-\contentsline {chapter}{\numberline {3}\MakeUppercase {Metodologia}}{11}
-\contentsline {chapter}{\numberline {4}\MakeUppercase {Projeto}}{12}
-\contentsline {chapter}{\numberline {5}\MakeUppercase {Conclus\IeC {\~a}o}}{13}
-\contentsline {chapter}{\numberline {6}\MakeUppercase {Cronograma}}{14}
-\contentsline {section}{\numberline {6.1}Etapas}{14}
-\contentsline {section}{\numberline {6.2}Cronograma Semestral das Etapas de Desenvolvimento de Trabalho}{15}
-\contentsline {chapter}{\MakeUppercase {Bibliografia}}{16}
+\contentsline {section}{\numberline {1.1}Problematiza\IeC {\c c}\IeC {\~a}o}{9}
+\contentsline {section}{\numberline {1.2}Objetivos}{9}
+\contentsline {subsection}{\numberline {1.2.1}Objetivo Geral}{9}
+\contentsline {subsection}{\numberline {1.2.2}Objetivos Espec\IeC {\'\i }ficos}{9}
+\contentsline {section}{\numberline {1.3}Justificativa}{9}
+\contentsline {chapter}{\MakeUppercase {Bibliografia}}{11}

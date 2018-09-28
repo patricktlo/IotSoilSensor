@@ -1,32 +1,73 @@
 \chapter{Introdução} \label{chapter:intro}
 
-\par 
-
 \vspace{-0.1cm}
+
+\section{Problematização}
+
+\par
+Com a crescente demanda para uma produção agrícola mais eficiente, devido ao
+crescimento populacional em escala mundial e nacional, existe uma demanda muito grande
+para métodos mais eficientes e ecológicos de agricultura.
+
+Uma das maneiras de deixar mais eficiente o plantio, é medindo grandezas no
+campo, como por exemplo a temperatura, a umidade do solo e do ar. O
+acompanhamento dessas grandezas em tempo real pode dar informações essenciais
+para o fazendeiro. Por exemplo, tendo informações sobre a umidade do solo, será
+possível saber quando será o momento ideal para irrigar os campos.
+
+Com vários sensores capazes de medir tais grandezas espalhados pela fazenda, o
+fazendeiro seria capaz de obter informações mais específicas sobre determinadas
+partes do campo, como a distribuição da temperatura, da umidade do solo e
+relativa do ar, e derivados destes.
+
+Este projeto visa desenvolver um sensor capaz de medir a
+temperatura, a umidade relativa do ar e a umidade do solo, capaz de
+enviar essas informações por uma rede \textit{IoT}, mais especificamente,
+\textit{LoRa}, tendo um consumo extremamente baixo e consequentemente uma
+grande autonomia.
 
 \section{Objetivos}
 
 \subsection{Objetivo Geral}
-Desenvolver um dispositivo eletrônico capaz de medir temperatura, umidade do ar
-e do solo, e enviar os dados por uma rede \textit{IoT LoRa}. Todos os sensores integrados numa placa
-de baixo custo e baixo consumo de energia.
-O sensor de umidade do solo será capacitivo para que ele tenha uma longa duração e será integrado
-dentro da placa de circuito impresso.
-Usando a rede LoRa, seria teoricamente possível de ligar várias placas na rede facilmente, sendo
-possível de monitorar um grande espaço com vários sensores.
-Além disso será necessário dimensionar a bateria (que deverá durar por meses ou até anos) e a antena
-para a rede LoRa.
+Desenvolver um dispositivo eletrônico capaz de medir temperatura, umidade relativa do ar
+e do solo, e enviar os dados por uma rede \textit{IoT LoRa}. Todos os sensores
+integrados junto do microcontrolador numa só placa de baixo custo e baixo consumo de energia.
+O sensor de umidade do solo será capacitivo para que ele tenha uma longa duração
+e será integrado dentro da placa de circuito impresso.
 
 \subsection{Objetivos Específicos}
 \begin{itemize}
-\itemsep0em\item 
+  \itemsep0em\item Desenvolvimento do hardware.
+  \item Simulação do hardware no LTSpice ou em \textit{scripts} Python
+  \item Desenvolvimento de uma placa de circuito impresso
+  \item Desenvolvimento do software embarcado para microcontrolador STM32
 
 \end{itemize}
 
-\subsection{Normas e padrões utilizados}
+%\subsection{Normas e padrões utilizados}
 
-\begin{itemize}
-\itemsep0em\item Norma ABNT.
+%\begin{itemize}
+%\itemsep0em\item Norma ABNT.
+%\end{itemize}
 
-\end{itemize}
+\section{Justificativa}
+
+As exportações Brasileiras ligadas ao agronegócio chegam a 41,5\% das vendas
+externas totais no país, onde somente a soja é o principal produto exportado com
+42,5\% das exportações nacionais do agronegócio \cite{fiesp2018}.
+
+Além disso, a produção de carnes, outro setor muito importante para a exportação
+nacional, depende diretamente da agricultura uma vez que as rações dos animais
+são feitas com produtos provenientes da agricultura.
+
+Sendo então a agricultura uma área essencial para o desenvolvimento
+econômico e sustentável do Brasil, inovações nessa área tem um potencial enorme
+para deixar mais eficiente o crescimento das plantas, diminuindo gastos com
+água, por exemplo.
+
+Um dispositivo eletrônico capaz de disponibilizar essas informações do campo
+para o fazendeiro pode ser essencial para o desenvolvimento do negócio, uma vez
+que o fazendeiro poderá monitorar seu plantio. E com o surgimento das redes
+\textit{IoT}, se torna mais viável colocar vários dispositivos desses, de baixo custo,
+espalhados pelo campo para conseguir o maior número de dados possível.
 

@@ -25,7 +25,7 @@
 % \usepackage[none]{hyphenat}
 % \setlength{\emergencystretch}{5em}
 % % \usepackage{abnt2cite}
-\usepackage{natbib}
+% \usepackage{natbib}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{trivfloat}
 \trivfloat{quadro}
@@ -64,12 +64,12 @@
         {á}{{\'{a}}}1
         {ENTÃO}{{\keywordstyle{ENT\~{A}O}}}5
         {SENÃO}{{\keywordstyle{SEN\~{A}O}}}5
-        {FAÇA}{{\keywordstyle{FA\c{C}A}}}4,
-}
+        {FAÇA}{{\keywordstyle{FA\c{C}A}}}4,\
+      }
+
 
 % alterando o aspecto da cor azul
 \definecolor{blue}{RGB}{41,5,195}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% don't hyphenate %%%%%%%%%%%%%%%%
@@ -158,14 +158,17 @@
 \doublespacing
 
 %**********************************************************
+
  \input{capitulo1.tex}
- \input{capitulo2.tex}
- \input{capitulo3.tex}
- \input{capitulo4.tex}
+ 
+% \input{capitulo2.tex}
+% \input{capitulo3.tex}
+% \input{capitulo4.tex}
 % \input{capitulo5.tex}
 % \input{capitulo6.tex}
- \input{conclusao.tex}
- \input{crono.tex}
+% \input{conclusao.tex}
+% \input{crono.tex}
+
 %**********************************************************
 
 \appendix

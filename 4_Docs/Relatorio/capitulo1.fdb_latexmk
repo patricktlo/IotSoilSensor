@@ -1,12 +1,13 @@
 # Fdb version 3
-["pdflatex"] 1537755381 "capitulo1.tex" "capitulo1.pdf" "capitulo1" 1537755381
+["pdflatex"] 1537918835 "capitulo1.tex" "capitulo1.pdf" "capitulo1" 1537918835
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
+  "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1480098701 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf" 1522066949 33362 cf75436e19743e94a92a6b1b9183c434 ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1537324880 4221350 00a989c6e8cdb1661f6d4fd8038dd826 ""
   "/usr/local/texlive/2018/texmf.cnf" 1537324862 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "capitulo1.aux" 1537713424 8 a94a2480d3289e625eea47cd1b285758 ""
-  "capitulo1.tex" 1537755376 961 06890f9dba5f2dbadd633c53f9b50a72 ""
+  "capitulo1.tex" 1537917449 1527 e7103a85a5aebc1e5dffc6688bfdd56b ""
   (generated)
   "capitulo1.pdf"
   "capitulo1.log"
