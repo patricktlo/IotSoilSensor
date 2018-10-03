@@ -1,6 +1,26 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Connector:Conn_01x02_Male
+#
+DEF Connector:Conn_01x02_Male J 0 40 Y N 1 F N
+F0 "J" 0 100 50 H V C CNN
+F1 "Connector:Conn_01x02_Male" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+S 34 -95 0 -105 1 1 6 F
+S 34 5 0 -5 1 1 6 F
+P 2 1 1 6 50 -100 34 -100 N
+P 2 1 1 6 50 0 34 0 N
+X Pin_1 1 200 0 150 L 50 50 1 1 P
+X Pin_2 2 200 -100 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector:Conn_01x04_Female
 #
 DEF Connector:Conn_01x04_Female J 0 40 Y N 1 F N
@@ -27,11 +47,11 @@ X Pin_4 4 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector:Conn_01x05_Male
+# Connector:Conn_01x04_Male
 #
-DEF Connector:Conn_01x05_Male J 0 40 Y N 1 F N
-F0 "J" 0 300 50 H V C CNN
-F1 "Connector:Conn_01x05_Male" 0 -300 50 H V C CNN
+DEF Connector:Conn_01x04_Male J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "Connector:Conn_01x04_Male" 0 -300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -42,17 +62,14 @@ S 34 -195 0 -205 1 1 6 F
 S 34 -95 0 -105 1 1 6 F
 S 34 5 0 -5 1 1 6 F
 S 34 105 0 95 1 1 6 F
-S 34 205 0 195 1 1 6 F
 P 2 1 1 6 50 -200 34 -200 N
 P 2 1 1 6 50 -100 34 -100 N
 P 2 1 1 6 50 0 34 0 N
 P 2 1 1 6 50 100 34 100 N
-P 2 1 1 6 50 200 34 200 N
-X Pin_1 1 200 200 150 L 50 50 1 1 P
-X Pin_2 2 200 100 150 L 50 50 1 1 P
-X Pin_3 3 200 0 150 L 50 50 1 1 P
-X Pin_4 4 200 -100 150 L 50 50 1 1 P
-X Pin_5 5 200 -200 150 L 50 50 1 1 P
+X Pin_1 1 200 100 150 L 50 50 1 1 P
+X Pin_2 2 200 0 150 L 50 50 1 1 P
+X Pin_3 3 200 -100 150 L 50 50 1 1 P
+X Pin_4 4 200 -200 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -248,34 +265,6 @@ X ~ 2 0 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Jumper:SolderJumper_3_Bridged12
-#
-DEF Jumper:SolderJumper_3_Bridged12 JP 0 0 Y N 1 F N
-F0 "JP" -100 -100 50 H V C CNN
-F1 "Jumper:SolderJumper_3_Bridged12" 0 110 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SolderJumper*Bridged12*
-$ENDFPLIST
-DRAW
-A -40 0 40 901 -901 0 1 0 N -40 40 -40 -40
-A -40 0 40 901 -901 0 1 0 F -40 40 -40 -40
-A 40 0 40 -899 899 0 1 0 N 40 -40 40 40
-A 40 0 40 -899 899 0 1 0 F 40 -40 40 40
-S -40 20 -20 -20 0 1 0 F
-S -20 40 20 -40 0 1 0 F
-P 2 0 1 0 -100 0 -80 0 N
-P 2 0 1 0 -40 40 -40 -40 N
-P 2 0 1 0 0 -50 0 -40 N
-P 2 0 1 0 40 40 40 -40 N
-P 2 0 1 0 100 0 80 0 N
-X A 1 -200 0 100 R 50 50 1 1 P
-X C 2 0 -150 100 U 50 50 1 1 I
-X B 3 200 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # MCU_ST_STM32L0:STM32L051C8Tx
 #
 DEF MCU_ST_STM32L0:STM32L051C8Tx U 0 20 Y Y 1 F N
@@ -368,23 +357,6 @@ X DIO1 6 500 300 200 L 50 50 1 1 B
 X DIO2 7 500 200 200 L 50 50 1 1 B
 X DIO3 8 500 100 200 L 50 50 1 1 B
 X Gnd 9 0 -700 200 U 50 50 1 1 P N
-ENDDRAW
-ENDDEF
-#
-# Switch:SW_Push
-#
-DEF Switch:SW_Push SW 0 40 N N 1 F N
-F0 "SW" 50 100 50 H V L CNN
-F1 "Switch:SW_Push" 0 -60 50 H V C CNN
-F2 "" 0 200 50 H I C CNN
-F3 "" 0 200 50 H I C CNN
-DRAW
-C -80 0 20 0 1 0 N
-C 80 0 20 0 1 0 N
-P 2 0 1 0 0 50 0 120 N
-P 2 0 1 0 100 50 -100 50 N
-X 1 1 -200 0 100 R 50 50 0 1 P
-X 2 2 200 0 100 L 50 50 0 1 P
 ENDDRAW
 ENDDEF
 #
