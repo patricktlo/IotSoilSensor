@@ -1,1 +1,17 @@
 \chapter{Metodologia} \label{chapter:metodologia}
+A metodologia à ser seguida para desenvolver o projeto é a seguinte:
+
+Começar por uma revisão bibliográfica, para ver o que já foi feito. O foco nessa parte é procurar artigos que implementaram, principalmente, medida de umidade no solo, pois é o mais importante para a planta.
+
+Depois começa o desenvolvimento hardware, onde será feita a escolha dos componentes, dos circuitos de condicionamento dos sensores, do microcontrolador e do módulo de transmissão LoRa.
+
+A simulação do hardware é então feita, sera usado LTSpice, Python e FEMM para simular os diversos sensores presentes no projeto.
+
+Uma vez a simulação feita, é testado o hardware em testes de bancada. Com o hardware funcionando, é feita a placa de circuito impresso no software KiCAD.
+
+Com a PCB feita, é desenvolvido o software embarcado para STM32. O firmware sera escrito em C, na IDE Atollic TrueSTUDIO. O software STM32CUBEMX também será utilizado para geração do código base. 
+
+Finalmente, será feita a comunicação via rede LoRa. Definindo a payload, os parâmetros de rede, os módulos e desenvolvendo um gateway.
+
+
+

@@ -45,6 +45,8 @@
 
 /* USER CODE BEGIN Includes */
 
+#include <inttypes.h>
+
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
