@@ -1,0 +1,17 @@
+---
+:source:
+  :path: test
+  :file: test_NTC.c
+:successes:
+- :test: test_NTC_getTemp
+  :line: 15
+  :message: ''
+:failures: []
+:ignores: []
+:counts:
+  :total: 1
+  :passed: 1
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.0009608380005374784
