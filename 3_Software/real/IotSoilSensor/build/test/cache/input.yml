@@ -25,6 +25,7 @@
   :source:
   - Src/**
   - Inc/**
+  - Drivers/**
   :support:
   - test/support
   :include: []
@@ -72,10 +73,10 @@
   :testfail: ".fail"
   :dependencies: ".d"
 :unity:
-  :vendor_path: "/media/storage/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
+  :vendor_path: "/media/patrick/C292A9B892A9B0F9/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
   :defines: []
 :cmock:
-  :vendor_path: "/media/storage/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
+  :vendor_path: "/media/patrick/C292A9B892A9B0F9/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
   :defines: []
   :includes: []
   :mock_prefix: mock_
@@ -94,7 +95,7 @@
   :verbosity: 3
   :unity_helper: false
 :cexception:
-  :vendor_path: "/media/storage/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
+  :vendor_path: "/media/patrick/C292A9B892A9B0F9/Documentos/2_Faculdade/2.1_TCC/IotSoilSensor/3_Software/real/IotSoilSensor/vendor/ceedling/vendor"
   :defines: []
 :test_runner:
   :includes: []

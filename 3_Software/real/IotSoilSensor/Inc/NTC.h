@@ -1,8 +1,11 @@
 #ifndef _NTC_H
 #define _NTC_H
 
+#include <inttypes.h>
 
-float NTC_getTemp();
+void NTC_init();
+
+uint32_t NTC_getTemp();
 
 
 

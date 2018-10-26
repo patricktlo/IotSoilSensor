@@ -41,15 +41,21 @@
 #include "stm32l0xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+#include "NTC.h"
+#include "ADC.h"
 
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
 
+COMP_HandleTypeDef hcomp1;
+
 RTC_HandleTypeDef hrtc;
 
 SPI_HandleTypeDef hspi1;
+
+TIM_HandleTypeDef htim21;
 
 UART_HandleTypeDef huart1;
 
@@ -61,10 +67,15 @@ UART_HandleTypeDef huart1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_ADC_Init(void);
 static void MX_RTC_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_COMP1_Init(void);
+static void MX_ADC_Init(void);
+static void MX_TIM21_Init(void);
+
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+                                
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -104,13 +115,20 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ADC_Init();
   MX_RTC_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_COMP1_Init();
+  MX_ADC_Init();
+  MX_TIM21_Init();
   /* USER CODE BEGIN 2 */
 
-  uint32_t adcValue = 0;
+  NTC_init();
+
+  ADC_calibrate();
+
+
+  uint32_t temp_value=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,28 +136,9 @@ int main(void)
   while (1)
   {
 
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
-	HAL_Delay(1);
+	HAL_GPIO_TogglePin(userLED_GPIO_Port, userLED_Pin);
 
-	HAL_ADC_Start(&hadc1);
-
-	for (int i=0; i<16; i++)
-	{
-		HAL_ADC_PollForConversion(&hadc1, 10);
-		adcValue += HAL_ADC_GetValue(&hadc1);
-	}
-
-	adcValue /= 16;
-
-	HAL_ADC_PollForConversion(&hadc1, 100);
-	adcValue = HAL_ADC_GetValue(&hadc1);
-
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
-
-
-	HAL_ADC_Stop(&hadc1);
-
-	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	temp_value = NTC_getTemp();
 
 	HAL_Delay(1000);
 
@@ -226,7 +225,7 @@ static void MX_ADC_Init(void)
   hadc.Init.OversamplingMode = DISABLE;
   hadc.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV1;
   hadc.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc.Init.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  hadc.Init.SamplingTime = ADC_SAMPLETIME_79CYCLES_5;
   hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
   hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc.Init.ContinuousConvMode = DISABLE;
@@ -246,7 +245,7 @@ static void MX_ADC_Init(void)
 
     /**Configure for the selected ADC regular channel to be converted. 
     */
-  sConfig.Channel = ADC_CHANNEL_0;
+  sConfig.Channel = ADC_CHANNEL_7;
   sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
@@ -255,16 +254,27 @@ static void MX_ADC_Init(void)
 
     /**Configure for the selected ADC regular channel to be converted. 
     */
-  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Channel = ADC_CHANNEL_9;
   if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Configure for the selected ADC regular channel to be converted. 
-    */
-  sConfig.Channel = ADC_CHANNEL_2;
-  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
+}
+
+/* COMP1 init function */
+static void MX_COMP1_Init(void)
+{
+
+  hcomp1.Instance = COMP1;
+  hcomp1.Init.InvertingInput = COMP_INPUT_MINUS_DAC1_CH1;
+  hcomp1.Init.NonInvertingInput = COMP_INPUT_PLUS_IO1;
+  hcomp1.Init.LPTIMConnection = COMP_LPTIMCONNECTION_DISABLED;
+  hcomp1.Init.OutputPol = COMP_OUTPUTPOL_NONINVERTED;
+  hcomp1.Init.Mode = COMP_POWERMODE_ULTRALOWPOWER;
+  hcomp1.Init.WindowMode = COMP_WINDOWMODE_DISABLE;
+  hcomp1.Init.TriggerMode = COMP_TRIGGERMODE_NONE;
+  if (HAL_COMP_Init(&hcomp1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -297,9 +307,6 @@ static void MX_RTC_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
-  /* USER CODE BEGIN RTC_Init 2 */
-
-  /* USER CODE END RTC_Init 2 */
 
 }
 
@@ -324,6 +331,43 @@ static void MX_SPI1_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
+
+}
+
+/* TIM21 init function */
+static void MX_TIM21_Init(void)
+{
+
+  TIM_MasterConfigTypeDef sMasterConfig;
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htim21.Instance = TIM21;
+  htim21.Init.Prescaler = 0;
+  htim21.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim21.Init.Period = 0;
+  htim21.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_OC_Init(&htim21) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim21, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim21, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  HAL_TIM_MspPostInit(&htim21);
 
 }
 
@@ -369,10 +413,10 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LoRa_Reset_GPIO_Port, LoRa_Reset_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, PWR_Temp_Pin|PWR_MS_Pin|PWR_RH_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PWR_MS_Pin|PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, userLED_Pin|LoRa_SS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, PWR_RH_COMP_Pin|LoRa_SS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : LoRa_Reset_Pin */
   GPIO_InitStruct.Pin = LoRa_Reset_Pin;
@@ -381,15 +425,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LoRa_Reset_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PWR_Temp_Pin PWR_MS_Pin PWR_RH_Pin */
-  GPIO_InitStruct.Pin = PWR_Temp_Pin|PWR_MS_Pin|PWR_RH_Pin;
+  /*Configure GPIO pins : PWR_MS_Pin PWR_MS_COMP_Pin PWR_Temp_Pin userLED_Pin */
+  GPIO_InitStruct.Pin = PWR_MS_Pin|PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : userLED_Pin LoRa_SS_Pin */
-  GPIO_InitStruct.Pin = userLED_Pin|LoRa_SS_Pin;
+  /*Configure GPIO pins : PWR_RH_COMP_Pin LoRa_SS_Pin */
+  GPIO_InitStruct.Pin = PWR_RH_COMP_Pin|LoRa_SS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

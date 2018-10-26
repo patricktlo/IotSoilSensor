@@ -32,6 +32,7 @@
   :source:
     - Src/**
     - Inc/**
+    - Drivers/**
   :support:
     - test/support
 

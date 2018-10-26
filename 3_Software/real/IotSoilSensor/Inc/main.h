@@ -51,14 +51,22 @@
 
 #define LoRa_Reset_Pin GPIO_PIN_13
 #define LoRa_Reset_GPIO_Port GPIOC
-#define PWR_Temp_Pin GPIO_PIN_3
-#define PWR_Temp_GPIO_Port GPIOA
-#define PWR_MS_Pin GPIO_PIN_4
+#define PWR_MS_Pin GPIO_PIN_0
 #define PWR_MS_GPIO_Port GPIOA
-#define PWR_RH_Pin GPIO_PIN_5
-#define PWR_RH_GPIO_Port GPIOA
-#define userLED_Pin GPIO_PIN_12
-#define userLED_GPIO_Port GPIOB
+#define PWR_MS_COMP_Pin GPIO_PIN_2
+#define PWR_MS_COMP_GPIO_Port GPIOA
+#define PWR_Temp_Pin GPIO_PIN_5
+#define PWR_Temp_GPIO_Port GPIOA
+#define ADC_TEMP_Pin GPIO_PIN_7
+#define ADC_TEMP_GPIO_Port GPIOA
+#define ADC_RH_Pin GPIO_PIN_1
+#define ADC_RH_GPIO_Port GPIOB
+#define PWR_RH_COMP_Pin GPIO_PIN_10
+#define PWR_RH_COMP_GPIO_Port GPIOB
+#define PWR_RH_Pin GPIO_PIN_14
+#define PWR_RH_GPIO_Port GPIOB
+#define userLED_Pin GPIO_PIN_8
+#define userLED_GPIO_Port GPIOA
 #define LoRa_SS_Pin GPIO_PIN_6
 #define LoRa_SS_GPIO_Port GPIOB
 

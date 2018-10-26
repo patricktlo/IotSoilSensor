@@ -8,7 +8,10 @@
 
 DECLARE_FAKE_VOID_FUNC0(ADC_start);
 DECLARE_FAKE_VOID_FUNC0(ADC_stop);
-DECLARE_FAKE_VALUE_FUNC0(uint32_t, ADC_getTemp);
+DECLARE_FAKE_VOID_FUNC0(ADC_selectNTC_Channel);
+DECLARE_FAKE_VALUE_FUNC0(uint16_t, ADC_getTemp);
+DECLARE_FAKE_VALUE_FUNC0(uint16_t, ADC_getHR202);
+DECLARE_FAKE_VOID_FUNC0(ADC_calibrate);
 
 void mock_ADC_Init(void);
 void mock_ADC_Verify(void);

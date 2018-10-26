@@ -44,6 +44,8 @@ char* GlobalOrderError;
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_NTC_getTemp(void);
+extern void test_NTC_init();
+extern void test_NTC_getTemp_returnValue(void);
 
 
 /*=======Mock Management=====*/
@@ -104,7 +106,9 @@ int main(void)
 {
   suite_setup();
   UnityBegin("test_NTC.c");
-  RUN_TEST(test_NTC_getTemp, 15);
+  RUN_TEST(test_NTC_getTemp, 14);
+  RUN_TEST(test_NTC_init, 29);
+  RUN_TEST(test_NTC_getTemp_returnValue, 41);
 
   CMock_Guts_MemFreeFinal();
   return suite_teardown(UnityEnd());
