@@ -45,6 +45,10 @@
 
 /* USER CODE BEGIN Includes */
 #include <inttypes.h>
+#include <stdbool.h>
+#include <errors.h>
+#include "sysUtils.h"
+
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/

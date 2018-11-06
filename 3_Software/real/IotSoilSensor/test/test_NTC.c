@@ -34,7 +34,8 @@ void test_NTC_init()
 	TEST_ASSERT_EQUAL_PTR((void*)GPIO_NTC_off , fff.call_history[0]);
 
 	// Select NTC channel
-	TEST_ASSERT_EQUAL_PTR((void*)ADC_selectNTC_Channel, fff.call_history[1]);
+	TEST_ASSERT_EQUAL_PTR((void*)ADC_selectSensor, fff.call_history[1]);
+	TEST_ASSERT_EQUAL(SENSOR_NTC, ADC_selectSensor_fake.arg0_val);
 
 }
 
@@ -44,7 +45,7 @@ void test_NTC_getTemp_returnValue(void)
 
 
 	// Given
-	ADC_getTemp_fake.return_val = adc_value;
+	ADC_getValue_fake.return_val = adc_value;
 
 	// When
 	uint32_t retVal = NTC_getTemp();
