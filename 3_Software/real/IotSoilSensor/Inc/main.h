@@ -83,6 +83,8 @@
 
 /* USER CODE BEGIN Private defines */
 
+#define PAYLOAD_SIZE (10)
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

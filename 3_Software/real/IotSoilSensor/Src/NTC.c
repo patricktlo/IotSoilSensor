@@ -8,16 +8,18 @@ void NTC_init()
 {
 	// Make sure the NTC is off
 	GPIO_NTC_off();
-
-	// Select only NTC on ADC
-	ADC_selectSensor(SENSOR_NTC);
 }
 
 
 uint32_t NTC_getTemp()
 {
+	// Select only NTC on ADC
+	ADC_selectSensor(SENSOR_NTC);
+
 	// Turn NTC power on
 	GPIO_NTC_on();
+
+	delay_ms(1);
 
 	// Start ADC
 	ADC_start();

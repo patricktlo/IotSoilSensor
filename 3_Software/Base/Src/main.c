@@ -41,11 +41,11 @@
 #include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "SX1278.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
+SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 
@@ -57,15 +57,10 @@ UART_HandleTypeDef huart1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_ADC1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SPI1_Init(void);
 
 /* USER CODE BEGIN PFP */
-
-typedef union _float2byte {
-	uint32_t b;
-	float f;
-} float2byte;
 
 
 /* Private function prototypes -----------------------------------------------*/
@@ -105,14 +100,31 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ADC1_Init();
   MX_USART1_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
-  uint32_t adcValue;
+  SX1278_hw_t LoRaHW = {  .nss =   { .pin  = SPI_NSS_Pin,
+		  	  	  	  	             .port = SPI_NSS_GPIO_Port},
+						  .reset = { .pin  = LoRa_Reset_Pin,
+									 .port = LoRa_Reset_GPIO_Port},
+						  .dio0 =  {
+									 .pin = 0,
+									 .port = LoRa_Reset_GPIO_Port},
+						  .spi =     &hspi1,
+				  };
 
-  uint32_t lastTimestamp = HAL_GetTick();
-  uint32_t lastTimestampUART = HAL_GetTick();
+
+  SX1278_t LoRa;
+  LoRa.hw = &LoRaHW;
+
+  SX1278_begin(&LoRa, SX1278_433MHZ, SX1278_POWER_17DBM, SX1278_LORA_SF_12,SX1278_LORA_BW_125KHZ, 6);
+
+
+  uint32_t ret;
+  uint8_t buffer[256];
+  ret = SX1278_LoRaEntryRx(&LoRa, 6, 2000);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,57 +132,26 @@ int main(void)
   while (1)
   {
 
-#if 0
-	if ( (HAL_GetTick()- lastTimestampUART) > 1000 ){
+	  ret = SX1278_LoRaRxPacket(&LoRa, 2000);
 
-		lastTimestampUART = HAL_GetTick();
-		HAL_ADC_Start(&hadc1);
+		if (ret > 0) {
+		  SX1278_read(&LoRa, (uint8_t *) buffer, ret);
+//		  printf("Content (%d): %s\r\n", ret, buffer);
 
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+		  HAL_Delay(100);
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+		  HAL_Delay(100);
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+		  HAL_Delay(100);
+		  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
 
-		for (int i=0; i<16; i++)
-		{
-			HAL_ADC_PollForConversion(&hadc1, 10);
-			adcValue += HAL_ADC_GetValue(&hadc1);
+		  HAL_UART_Transmit(&huart1, LoRa.rxBuffer, ret, 1000);
 		}
 
-		adcValue /= 16;
 
-		HAL_ADC_PollForConversion(&hadc1, 100);
-		adcValue = HAL_ADC_GetValue(&hadc1);
+	  HAL_Delay(1000);
 
-		// Send over uart
-		char output[25];
-
-		sprintf(output, "%lu\r\n", adcValue);
-
-		HAL_UART_Transmit(&huart1, &output, strlen(output)+1, 100);
-
-		HAL_ADC_Stop(&hadc1);
-	}
-	#endif
-
-	if ( (HAL_GetTick()- lastTimestamp) > 100 ){
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);
-		lastTimestamp = HAL_GetTick();
-
-		HAL_ADC_Start(&hadc1);
-
-		HAL_Delay(15);
-
-		HAL_ADC_PollForConversion(&hadc1, 100);
-		adcValue = HAL_ADC_GetValue(&hadc1);
-
-		// Send over uart
-		char output[25];
-
-		sprintf(output, "%lu\r\n", adcValue);
-
-		HAL_UART_Transmit(&huart1, &output, strlen(output)+1, 100);
-
-		HAL_ADC_Stop(&hadc1);
-
-
-	}
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -189,7 +170,6 @@ void SystemClock_Config(void)
 
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
@@ -219,13 +199,6 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV8;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
     /**Configure the Systick interrupt time 
     */
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
@@ -238,32 +211,24 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/* ADC1 init function */
-static void MX_ADC1_Init(void)
+/* SPI1 init function */
+static void MX_SPI1_Init(void)
 {
 
-  ADC_ChannelConfTypeDef sConfig;
-
-    /**Common config 
-    */
-  hadc1.Instance = ADC1;
-  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
-  hadc1.Init.DiscontinuousConvMode = DISABLE;
-  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc1.Init.NbrOfConversion = 1;
-  if (HAL_ADC_Init(&hadc1) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-    /**Configure Regular Channel 
-    */
-  sConfig.Channel = ADC_CHANNEL_0;
-  sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_71CYCLES_5;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -304,13 +269,17 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LoRa_Reset_GPIO_Port, LoRa_Reset_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SPI_NSS_GPIO_Port, SPI_NSS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -319,12 +288,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA3 PA4 PA5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pin : LoRa_Reset_Pin */
+  GPIO_InitStruct.Pin = LoRa_Reset_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(LoRa_Reset_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SPI_NSS_Pin */
+  GPIO_InitStruct.Pin = SPI_NSS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SPI_NSS_GPIO_Port, &GPIO_InitStruct);
 
 }
 

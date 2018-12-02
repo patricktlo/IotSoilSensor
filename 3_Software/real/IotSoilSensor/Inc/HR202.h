@@ -3,11 +3,6 @@
 
 #include <inttypes.h>
 
-typedef struct {
-	uint16_t average;
-	uint16_t errorCode;
-} hr202_values_t ;
-
-hr202_values_t HR202_getRH();
+uint32_t HR202_getRH();
 
 #endif // _HR202_H

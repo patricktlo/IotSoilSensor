@@ -51,6 +51,11 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define LoRa_Reset_Pin GPIO_PIN_11
+#define LoRa_Reset_GPIO_Port GPIOB
+#define SPI_NSS_Pin GPIO_PIN_8
+#define SPI_NSS_GPIO_Port GPIOA
+
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 

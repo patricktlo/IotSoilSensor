@@ -42,8 +42,10 @@
 
 /* USER CODE BEGIN Includes */
 #include "NTC.h"
-#include "ADC.h"
+#include "HR202.h"
 #include "SX1278.h"
+#include "RA01.h"
+#include "MoistureSensor.h"
 
 /* USER CODE END Includes */
 
@@ -58,8 +60,7 @@ SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim21;
-
-UART_HandleTypeDef huart1;
+TIM_HandleTypeDef htim22;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -69,13 +70,13 @@ UART_HandleTypeDef huart1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_RTC_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_USART1_UART_Init(void);
 static void MX_COMP1_Init(void);
 static void MX_ADC_Init(void);
 static void MX_TIM21_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM22_Init(void);
+static void MX_RTC_Init(void);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -119,36 +120,26 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_RTC_Init();
   MX_SPI1_Init();
-  MX_USART1_UART_Init();
   MX_COMP1_Init();
   MX_ADC_Init();
   MX_TIM21_Init();
   MX_TIM2_Init();
+  MX_TIM22_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
-  NTC_init();
-
+  // Init All
   ADC_calibrate();
-
-  SX1278_hw_t LoRaHW = {  .nss =   { .pin  = LoRa_SS_Pin,
-		  	  	  	  	             .port = LoRa_SS_GPIO_Port},
-						  .reset = { .pin  = LoRa_Reset_Pin,
-									 .port = LoRa_Reset_GPIO_Port},
-						  .dio0 =  {
-									 .pin = 1,
-									 .port = LoRa_Reset_GPIO_Port},
-						  .spi =     &hspi1,
-				  };
-
+  MS_init();
+  NTC_init();
+  HR202_init();
 
   SX1278_t LoRa;
-  LoRa.hw = &LoRaHW;
+  SX1278_hw_t LoRaHW;
+  LoRa_init(&LoRa, &LoRaHW);
 
-  uint32_t temp_value=0;
-  uint32_t rh_value=0;
-  uint32_t RegVer_LoRa=0;
+  uint16_t message_nb = 0;
 
   /* USER CODE END 2 */
 
@@ -156,21 +147,44 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_GPIO_TogglePin(userLED_GPIO_Port, userLED_Pin);
+	    GPIO_userLed_on();
 
-#if 0
-	temp_value = NTC_getTemp();
-	rh_value = HR202_getRH();
+	    // variable containing the payload
+		uint8_t txsend[PAYLOAD_SIZE];
+		uint32_t rh_value, temperature_value, MS_value;
 
-	SX1278_begin(&LoRa, SX1278_433MHZ, SX1278_POWER_17DBM, SX1278_LORA_SF_8,
-			SX1278_LORA_BW_20_8KHZ, 10);
+		// Get values
+		temperature_value = NTC_getTemp();
+		MS_value = MS_getMS();
+		rh_value = HR202_getRH();
 
-	RegVer_LoRa = SX1278_SPIRead(&LoRa, RegVersion);
-#endif
+		// Sort values into bytes in order to send them
+		LoRa_parsePayload(txsend, temperature_value, MS_value, rh_value, message_nb);
+
+		// Send data via Lora
+		SX1278_LoRaEntryTx(&LoRa, PAYLOAD_SIZE, 2000);
+		SX1278_LoRaTxPacket(&LoRa, (uint8_t *) txsend, PAYLOAD_SIZE, 2000);
+
+		// Put LoRa module to sleep
+		SX1278_sleep(&LoRa);
+
+		// Increment message nb
+		message_nb++;
+
+	    GPIO_userLed_off();
+
+		// Stop
+	    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk; // low-power mode = stop mode
+		PWR->CR &= ~PWR_CR_PDDS;
+		PWR->CSR &= ~(PWR_CSR_WUF);
+
+		// Select MSI as stop clock
+		RCC->CFGR &= ~(RCC_CFGR_STOPWUCK);
+
+		__WFI();
 
 
-
-	HAL_Delay(1000);
+//		HAL_Delay(1000);
 
 
   /* USER CODE END WHILE */
@@ -199,9 +213,8 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 16;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -213,7 +226,7 @@ void SystemClock_Config(void)
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
@@ -223,8 +236,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_RTC;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -319,6 +331,10 @@ static void MX_RTC_Init(void)
 
   /* USER CODE END RTC_Init 0 */
 
+  RTC_TimeTypeDef sTime;
+  RTC_DateTypeDef sDate;
+  RTC_AlarmTypeDef sAlarm;
+
   /* USER CODE BEGIN RTC_Init 1 */
 
   /* USER CODE END RTC_Init 1 */
@@ -327,13 +343,53 @@ static void MX_RTC_Init(void)
     */
   hrtc.Instance = RTC;
   hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
-  hrtc.Init.AsynchPrediv = 127;
-  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.AsynchPrediv = 124;
+  hrtc.Init.SynchPrediv = 295;
   hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
   hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
   hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
   hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
   if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Initialize RTC and set the Time and Date 
+    */
+  sTime.Hours = 0x0;
+  sTime.Minutes = 0x0;
+  sTime.Seconds = 0x0;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 0x1;
+  sDate.Year = 0x0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+    /**Enable the Alarm A 
+    */
+  sAlarm.AlarmTime.Hours = 0x0;
+  sAlarm.AlarmTime.Minutes = 0x1;
+  sAlarm.AlarmTime.Seconds = 0x0;
+  sAlarm.AlarmTime.SubSeconds = 0x0;
+  sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY|RTC_ALARMMASK_HOURS;
+  sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+  sAlarm.AlarmDateWeekDay = 0x1;
+  sAlarm.Alarm = RTC_ALARM_A;
+  if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -400,9 +456,9 @@ static void MX_TIM2_Init(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
   sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_OC_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
@@ -422,9 +478,9 @@ static void MX_TIM21_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim21.Instance = TIM21;
-  htim21.Init.Prescaler = 0;
+  htim21.Init.Prescaler = 63;
   htim21.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim21.Init.Period = 8000;
+  htim21.Init.Period = 32000;
   htim21.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim21) != HAL_OK)
   {
@@ -451,7 +507,7 @@ static void MX_TIM21_Init(void)
 
   sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
   sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_OC_ConfigChannel(&htim21, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
@@ -462,21 +518,32 @@ static void MX_TIM21_Init(void)
 
 }
 
-/* USART1 init function */
-static void MX_USART1_UART_Init(void)
+/* TIM22 init function */
+static void MX_TIM22_Init(void)
 {
 
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim22.Instance = TIM22;
+  htim22.Init.Prescaler = 63;
+  htim22.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim22.Init.Period = 32000;
+  htim22.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htim22) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim22, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim22, &sMasterConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -497,14 +564,15 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LoRa_Reset_GPIO_Port, LoRa_Reset_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LoRa_Reset_GPIO_Port, LoRa_Reset_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, PWR_RH_COMP_Pin|LoRa_SS_Pin, GPIO_PIN_RESET);
@@ -512,12 +580,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : LoRa_Reset_Pin */
   GPIO_InitStruct.Pin = LoRa_Reset_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LoRa_Reset_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PWR_MS_COMP_Pin PWR_Temp_Pin userLED_Pin */
-  GPIO_InitStruct.Pin = PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin;
+  /*Configure GPIO pins : PWR_MS_COMP_Pin PWR_Temp_Pin userLED_Pin PA9 */
+  GPIO_InitStruct.Pin = PWR_MS_COMP_Pin|PWR_Temp_Pin|userLED_Pin|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -534,6 +602,13 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+
+}
+
+
 /* USER CODE END 4 */
 
 /**
@@ -545,6 +620,8 @@ static void MX_GPIO_Init(void)
 void _Error_Handler(char *file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
+	UNUSED(file);
+	UNUSED(line);
   /* User can add his own implementation to report the HAL error return state */
   while(1)
   {

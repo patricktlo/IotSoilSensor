@@ -5,8 +5,8 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
+Title "IoT Soil Sensor"
+Date "2018-11-21"
 Rev ""
 Comp ""
 Comment1 ""
@@ -41,7 +41,7 @@ L Device:R R7
 U 1 1 5B7D6B4F
 P 9350 1050
 F 0 "R7" V 9143 1050 50  0000 C CNN
-F 1 "470k" V 9234 1050 50  0000 C CNN
+F 1 "240k" V 9234 1050 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9280 1050 50  0001 C CNN
 F 3 "~" H 9350 1050 50  0001 C CNN
 	1    9350 1050
@@ -559,7 +559,7 @@ L Device:C C7
 U 1 1 5B90954A
 P 10150 4550
 F 0 "C7" H 10265 4596 50  0000 L CNN
-F 1 "1n" H 10265 4505 50  0000 L CNN
+F 1 "4,7n" H 10265 4505 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10188 4400 50  0001 C CNN
 F 3 "~" H 10150 4550 50  0001 C CNN
 	1    10150 4550

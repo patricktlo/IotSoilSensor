@@ -1,0 +1,25 @@
+Circuit: * C:\users\patrick\My Documents\Documents\2_Faculdade\2.1_TCC\IotSoilSensor\1_Simulations\HR202\hr202.asc
+
+Direct Newton iteration for .op point succeeded.
+.step r=3000
+.step r=13000
+.step r=87000
+.step r=1.3e+006
+
+Date: Wed Nov 21 08:26:18 2018
+Total elapsed time: 0.087 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 3089
+traniter = 3086
+tranpoints = 1544
+accept = 1496
+rejected = 48
+matrix size = 5
+fillins = 0
+solver = Normal
+Matrix Compiler1: 114 bytes object code size  0.4/0.4/[0.4]
+Matrix Compiler2: 301 bytes object code size  0.5/0.5/[0.4]
+

@@ -1,0 +1,26 @@
+Circuit: * C:\users\patrick\My Documents\Documents\2_Faculdade\2.1_TCC\IotSoilSensor\1_Simulations\Moisture sensor\LTSpice\Draft1.asc
+
+Direct Newton iteration for .op point succeeded.
+.step c=5e-011
+.step c=5.5e-010
+.step c=1.05e-009
+.step c=1.55e-009
+.step c=2e-009
+
+Date: Wed Nov 14 08:58:39 2018
+Total elapsed time: 0.118 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2509
+traniter = 2506
+tranpoints = 1254
+accept = 1219
+rejected = 35
+matrix size = 6
+fillins = 0
+solver = Normal
+Matrix Compiler1: 110 bytes object code size  0.4/0.4/[0.4]
+Matrix Compiler2: 346 bytes object code size  0.4/0.5/[0.4]
+

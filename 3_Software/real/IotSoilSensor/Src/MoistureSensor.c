@@ -1,6 +1,9 @@
 #include "MoistureSensor.h"
+#include "GPIO.h"
+#include "stm32l0xx_hal.h"
+#include "COMP.h"
 
-#define COMP_MEASURES	8
+#define COMP_MEASURES	(8)
 
 void MS_init()
 {
@@ -9,12 +12,14 @@ void MS_init()
 
 	// Turn comp off
 	COMP_init();
-
 }
 
 uint32_t MS_getMS()
 {
-	uint32_t countValue[2];
+	uint32_t countValue = 0;
+
+	// Turn on bridge
+	GPIO_MS_on();
 
 	// Turn on Comp
 	COMP_start();
@@ -29,24 +34,24 @@ uint32_t MS_getMS()
 
 	for (uint32_t i=0; i<COMP_MEASURES; i++)
 	{
-		for (uint32_t j=0; j<2; j++)
-		{
-			// poll comparator
-			while ( COMP_getOutput() == lastCompValue ) {}
-
-			// Save timer count
-			countValue[lastCompValue] += timer_MS_getTimer();
-
-			// Save current state
-			lastCompValue = COMP_getOutput();
+		// poll comparator
+		while ( lastCompValue == COMP_getOutput() ) {
 		}
-	}
 
-	// Do average for both
-	for (uint32_t i=0; i<2; i++)
-	{
-		countValue[i] = countValue[i]/COMP_MEASURES;
+		// Save timer count
+		countValue += timer_MS_getTimer();
+		// Save current state
+		lastCompValue = COMP_getOutput();
 	}
+	// Turn off square
+	timer_MS_stop_square();
 
-	return ( (countValue[0] & 0xffff) || ((countValue[1] & 0xffff) << 16) );
+	// Turn off bridge
+	GPIO_MS_off();
+
+	GPIO_MS_timer_off();
+
+	countValue = countValue/COMP_MEASURES;
+
+	return countValue;
 }
