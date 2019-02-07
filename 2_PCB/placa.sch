@@ -283,19 +283,19 @@ F 3 "" H 7450 1450 50  0001 C CNN
 	1    7450 1450
 	1    0    0    -1  
 $EndComp
-Text Notes 6000 650  0    50   ~ 0
+Text Notes 5650 650  0    50   ~ 0
 Power Supply
 Text Notes 550  6450 0    50   ~ 0
 ST-Link connection
 $Comp
 L power:GND #PWR0109
 U 1 1 5B8D5FED
-P 1450 7650
-F 0 "#PWR0109" H 1450 7400 50  0001 C CNN
-F 1 "GND" H 1455 7477 50  0000 C CNN
-F 2 "" H 1450 7650 50  0001 C CNN
-F 3 "" H 1450 7650 50  0001 C CNN
-	1    1450 7650
+P 1700 7400
+F 0 "#PWR0109" H 1700 7150 50  0001 C CNN
+F 1 "GND" H 1705 7227 50  0000 C CNN
+F 2 "" H 1700 7400 50  0001 C CNN
+F 3 "" H 1700 7400 50  0001 C CNN
+	1    1700 7400
 	1    0    0    -1  
 $EndComp
 Text Label 2100 2200 2    50   ~ 0
@@ -310,32 +310,32 @@ Text Label 3650 4800 0    50   ~ 0
 SWDIO
 Wire Wire Line
 	3650 4800 3450 4800
-Text Label 900  7000 0    50   ~ 0
+Text Label 1150 6750 0    50   ~ 0
 SWCLK
-Text Label 900  7300 0    50   ~ 0
+Text Label 1150 7050 0    50   ~ 0
 SWDIO
-Text Label 1000 7550 0    50   ~ 0
+Text Label 1250 7300 0    50   ~ 0
 NRST
 $Comp
 L power:VCC #PWR0110
 U 1 1 5B8DD502
-P 1450 7200
-F 0 "#PWR0110" H 1450 7050 50  0001 C CNN
-F 1 "VCC" H 1467 7373 50  0000 C CNN
-F 2 "" H 1450 7200 50  0001 C CNN
-F 3 "" H 1450 7200 50  0001 C CNN
-	1    1450 7200
+P 1700 6950
+F 0 "#PWR0110" H 1700 6800 50  0001 C CNN
+F 1 "VCC" H 1717 7123 50  0000 C CNN
+F 2 "" H 1700 6950 50  0001 C CNN
+F 3 "" H 1700 6950 50  0001 C CNN
+	1    1700 6950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C1
 U 1 1 5B8E21D1
-P 1450 7450
-F 0 "C1" H 1565 7496 50  0000 L CNN
-F 1 "100n" H 1565 7405 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1488 7300 50  0001 C CNN
-F 3 "~" H 1450 7450 50  0001 C CNN
-	1    1450 7450
+P 1700 7200
+F 0 "C1" H 1815 7246 50  0000 L CNN
+F 1 "100n" H 1815 7155 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1738 7050 50  0001 C CNN
+F 3 "~" H 1700 7200 50  0001 C CNN
+	1    1700 7200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -617,8 +617,6 @@ Wire Wire Line
 Wire Wire Line
 	10150 4400 10150 4350
 Connection ~ 10150 4350
-Wire Notes Line
-	8450 700  8450 5000
 Wire Wire Line
 	9850 2800 9500 2800
 Connection ~ 9500 2800
@@ -780,10 +778,8 @@ Text Label 8350 5450 2    50   ~ 0
 RCC_OSC_IN
 Text Label 8650 5450 0    50   ~ 0
 RCC_OSC_OUT
-Text Notes 7000 5000 0    50   ~ 0
+Text Notes 7000 5150 0    50   ~ 0
 Oscillators
-Wire Notes Line
-	6950 4850 6950 7800
 Wire Notes Line
 	6750 7800 6800 7800
 Wire Wire Line
@@ -864,8 +860,6 @@ Connection ~ 8350 5900
 Wire Wire Line
 	8650 5950 8650 5900
 Connection ~ 8650 5900
-Wire Notes Line
-	8450 5000 11250 5000
 Text Notes 9250 5250 0    50   ~ 0
 Low speed external
 $Comp
@@ -988,7 +982,7 @@ Text Label 3650 3500 0    50   ~ 0
 PWR_MS
 Wire Wire Line
 	3450 3900 3650 3900
-Text Notes 5800 2100 0    50   ~ 0
+Text Notes 5650 2100 0    50   ~ 0
 LoRa RA-01
 Wire Wire Line
 	2950 1950 3050 1950
@@ -997,8 +991,6 @@ Wire Wire Line
 Connection ~ 2950 1950
 Text Notes 1100 1500 0    50   ~ 0
 Microcontroller
-Wire Notes Line
-	5200 500  5200 4850
 Wire Wire Line
 	3650 4500 3450 4500
 Wire Wire Line
@@ -1124,8 +1116,6 @@ Wire Wire Line
 	2150 4100 2250 4100
 Wire Notes Line
 	5200 1900 11200 1900
-Wire Notes Line
-	5200 4850 8450 4850
 $Comp
 L Connector:Conn_01x04_Female J4
 U 1 1 5BA72F71
@@ -1185,68 +1175,68 @@ Wire Wire Line
 $Comp
 L Connector:Conn_01x04_Male J2
 U 1 1 5BB700CF
-P 650 7100
-F 0 "J2" H 756 7378 50  0000 C CNN
-F 1 "Conn_01x04_Male" H 756 7287 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 650 7100 50  0001 C CNN
-F 3 "~" H 650 7100 50  0001 C CNN
-	1    650  7100
+P 900 6850
+F 0 "J2" H 1006 7128 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 1006 7037 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 900 6850 50  0001 C CNN
+F 3 "~" H 900 6850 50  0001 C CNN
+	1    900  6850
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0106
 U 1 1 5BB95E51
-P 950 7100
-F 0 "#PWR0106" H 950 6850 50  0001 C CNN
-F 1 "GND" H 955 6927 50  0000 C CNN
-F 2 "" H 950 7100 50  0001 C CNN
-F 3 "" H 950 7100 50  0001 C CNN
-	1    950  7100
+P 1200 6850
+F 0 "#PWR0106" H 1200 6600 50  0001 C CNN
+F 1 "GND" H 1205 6677 50  0000 C CNN
+F 2 "" H 1200 6850 50  0001 C CNN
+F 3 "" H 1200 6850 50  0001 C CNN
+	1    1200 6850
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	900  7300 850  7300
+	1150 7050 1100 7050
 Wire Wire Line
-	900  7000 850  7000
+	1150 6750 1100 6750
 Wire Wire Line
-	1450 7650 1450 7600
+	1700 7400 1700 7350
 Wire Wire Line
 	3000 7350 3000 7600
 $Comp
 L Connector:Conn_01x02_Male J5
 U 1 1 5BBE81FC
-P 600 7550
-F 0 "J5" H 706 7728 50  0000 C CNN
-F 1 "Conn_01x02_Male" H 706 7637 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 600 7550 50  0001 C CNN
-F 3 "~" H 600 7550 50  0001 C CNN
-	1    600  7550
+P 850 7300
+F 0 "J5" H 956 7478 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 956 7387 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 850 7300 50  0001 C CNN
+F 3 "~" H 850 7300 50  0001 C CNN
+	1    850  7300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0124
 U 1 1 5BBF1F50
-P 900 7700
-F 0 "#PWR0124" H 900 7450 50  0001 C CNN
-F 1 "GND" H 905 7527 50  0000 C CNN
-F 2 "" H 900 7700 50  0001 C CNN
-F 3 "" H 900 7700 50  0001 C CNN
-	1    900  7700
+P 1150 7450
+F 0 "#PWR0124" H 1150 7200 50  0001 C CNN
+F 1 "GND" H 1155 7277 50  0000 C CNN
+F 2 "" H 1150 7450 50  0001 C CNN
+F 3 "" H 1150 7450 50  0001 C CNN
+	1    1150 7450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  7550 1000 7550
+	1050 7300 1250 7300
 Wire Wire Line
-	800  7650 900  7650
+	1050 7400 1150 7400
 Wire Wire Line
-	900  7650 900  7700
+	1150 7400 1150 7450
 Wire Wire Line
-	1450 7200 1450 7300
+	1700 6950 1700 7050
 Wire Wire Line
-	850  7200 1450 7200
-Connection ~ 1450 7200
+	1100 6950 1700 6950
+Connection ~ 1700 6950
 Wire Wire Line
-	950  7100 850  7100
+	1200 6850 1100 6850
 Wire Wire Line
 	6100 3400 6250 3400
 Text Label 2150 4500 2    50   ~ 0
@@ -1359,4 +1349,16 @@ NoConn ~ 2250 4300
 Wire Wire Line
 	2150 4500 2250 4500
 NoConn ~ 2250 4700
+Text Notes 3900 2100 0    50   ~ 0
+Decoupling caps
+Text Notes 5300 4200 0    31   ~ 0
+Test points for the SPI LoRa connection
+Wire Notes Line
+	5200 500  5200 5000
+Wire Notes Line
+	6950 6550 6950 5000
+Wire Notes Line
+	5200 5000 11250 5000
+Wire Notes Line
+	8450 450  8450 5000
 $EndSCHEMATC
