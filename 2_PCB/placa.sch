@@ -7,7 +7,7 @@ encoding utf-8
 Sheet 1 1
 Title "IoT Soil Sensor"
 Date "2018-11-21"
-Rev ""
+Rev "1.2"
 Comp ""
 Comment1 ""
 Comment2 ""
